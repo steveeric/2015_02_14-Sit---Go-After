@@ -78,27 +78,27 @@ public class AfterLog {
 			String tmpMstTableName = oderCompTmpTableName[i];
 			if(MyConfig.DB_TABLE_TMP_ROOM_MST.equals(tmpMstTableName)){
 				CompTmpData<TMP_ROOM_MST> tmp = new CompTmpData<TMP_ROOM_MST>();
-				List<TMP_ROOM_MST> list = tmp.getTmpMst(TMP_ROOM_MST.class, tmpMstTableName);
+				List<TMP_ROOM_MST> list = tmp.getAllTmpMst(TMP_ROOM_MST.class, tmpMstTableName);
 				createTmpRoomMst(list);
 				deleteTmpData(tmpMstTableName);
 			}else if(MyConfig.DB_TABLE_TMP_STUDENT_MST.equals(tmpMstTableName)){
 				CompTmpData<TMP_STUDENT_MST> tmp = new CompTmpData<TMP_STUDENT_MST>();
-				List<TMP_STUDENT_MST> list = tmp.getTmpMst(TMP_STUDENT_MST.class, tmpMstTableName);
+				List<TMP_STUDENT_MST> list = tmp.getAllTmpMst(TMP_STUDENT_MST.class, tmpMstTableName);
 				createTmpStudentMst(list);
 				deleteTmpData(tmpMstTableName);
 			}else if(MyConfig.DB_TABLE_TMP_FACULTY_MST.equals(tmpMstTableName)){
 				CompTmpData<TMP_FACULTY_MST> tmp = new CompTmpData<TMP_FACULTY_MST>();
-				List<TMP_FACULTY_MST> list = tmp.getTmpMst(TMP_FACULTY_MST.class, tmpMstTableName);
+				List<TMP_FACULTY_MST> list = tmp.getAllTmpMst(TMP_FACULTY_MST.class, tmpMstTableName);
 				createTmpFacultyMst(list);
 				deleteTmpData(tmpMstTableName);
 			}else if(MyConfig.DB_TABLE_TMP_STAFF_MST.equals(tmpMstTableName)){
 				CompTmpData<TMP_STAFF_MST> tmp = new CompTmpData<TMP_STAFF_MST>();
-				List<TMP_STAFF_MST> list = tmp.getTmpMst(TMP_STAFF_MST.class, tmpMstTableName);
+				List<TMP_STAFF_MST> list = tmp.getAllTmpMst(TMP_STAFF_MST.class, tmpMstTableName);
 				createTmpStaffMst(list);
 				deleteTmpData(tmpMstTableName);
 			}else if(MyConfig.DB_TABLE_TMP_CLASS_SCHEDULE_MST.equals(tmpMstTableName)){
 				CompTmpData<TMP_CLASS_SCHEDULE_MST> tmp = new CompTmpData<TMP_CLASS_SCHEDULE_MST>();
-				List<TMP_CLASS_SCHEDULE_MST> list = tmp.getTmpMst(TMP_CLASS_SCHEDULE_MST.class, tmpMstTableName);
+				List<TMP_CLASS_SCHEDULE_MST> list = tmp.getAllTmpMst(TMP_CLASS_SCHEDULE_MST.class, tmpMstTableName);
 				createTmpClassScheduleMst(list);
 				deleteTmpData(tmpMstTableName);
 			}
@@ -131,15 +131,15 @@ public class AfterLog {
 			writeTmpLog(list.get(i).getTmpLog());
 		}
 	}
-
 	private void writeTmpLog(String tmpLog) throws IOException{
 		//書き込み
 		bw.write(tmpLog);
 		bw.newLine();
 	}
-
 	private void deleteTmpData(String tmpTableName) throws SQLException{
-		String sql = "DELETE FROM `"+tmpTableName+"` WHERE `COMPLETE_FLAG` = 1";
+		//String sql = "DELETE FROM `"+tmpTableName+"` WHERE `COMPLETE_FLAG` = 1";
+		String sql = "DELETE FROM `"+tmpTableName+"`";
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try{
@@ -162,6 +162,5 @@ public class AfterLog {
 			}
 		}
 	}
-
 
 }
